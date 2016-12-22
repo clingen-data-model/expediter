@@ -8,9 +8,7 @@
     name: kafka
     system: yes
     group: kafka
-- name: Install zookeeper
-  apt:
-    name: zookeeper
+
 # TODO: Add verification of downloaded file
 - name: Download Kafka
   get_url:
@@ -35,15 +33,26 @@
   copy:
     src: config/
     dest: /etc/opt/kafka/
-- name: create systemd config
+- name: create systemd config for Kafka
   template:
     dest: /etc/systemd/system/kafka.service
     owner: root
     group: root
     mode: 644
     src: kafka.service.j2
-- name: start (or restart) Kafka
+- name: create systemd config for Zookeeper
+  copy:
+    dest: /etc/systemd/system/zookeeper.service
+    owner: root
+    group: root
+    mode: 644
+    src: zookeeper.service
+- name: start (or restart) Zookeeper
   systemd:
     daemon_reload: yes
+    name: zookeeper
+    state: restarted
+- name: start (or restart) Kafka
+  systemd:
     name: kafka
     state: restarted
