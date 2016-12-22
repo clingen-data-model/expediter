@@ -1,0 +1,49 @@
+---
+- name: setup group
+  group:
+    name: kafka
+    system: yes
+- name: setup user
+  user: 
+    name: kafka
+    system: yes
+    group: kafka
+- name: Install zookeeper
+  apt:
+    name: zookeeper
+# TODO: Add verification of downloaded file
+- name: Download Kafka
+  get_url:
+    url: "{{ kafka_url }}"
+    dest: /root/kafka.tgz
+- name: Uncompress Kafka
+  unarchive:
+    src: /root/kafka.tgz
+    dest: /opt
+    copy: no
+- name: Link /opt/kafka to current version
+  file:
+    src: "/opt/kafka_{{ kafka_version }}"
+    path: /opt/kafka
+    state: link
+    force: yes
+- name: Create /etc/opt/kafka
+  file:
+    path: /etc/opt/kafka
+    state: directory
+- name: Copy configuration to /etc/opt/kafka
+  copy:
+    src: config/
+    dest: /etc/opt/kafka/
+- name: create systemd config
+  template:
+    dest: /etc/systemd/system/kafka.service
+    owner: root
+    group: root
+    mode: 644
+    src: kafka.service.j2
+- name: start (or restart) Kafka
+  systemd:
+    daemon_reload: yes
+    name: kafka
+    state: restarted

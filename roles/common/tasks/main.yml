@@ -1,0 +1,15 @@
+- name: Add backports to sources.list
+  copy:
+    src: sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+- name: Update caches before running playbook
+  apt:
+    update_cache: yes
+- name: Install java-8
+  apt:
+    name: openjdk-8-jdk
+- name: Set java8 to default
+  command: /usr/sbin/update-java-alternatives -s java-1.8.0-openjdk-amd64
