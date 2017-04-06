@@ -1,2 +1,2 @@
 [stage]
-tndeb ansible_user=tristan
+tndeb ansible_user=tristan ansible_ssh_private_key_file=/Users/tristan/.ssh/id_rsa

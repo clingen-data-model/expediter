@@ -1,3 +1,6 @@
 kafka_url: http://www.trieuvan.com/apache/kafka/0.10.1.0/kafka_2.11-0.10.1.0.tgz
 kafka_version: 2.11-0.10.1.0
 kafka_heap_opts: "-Xmx1G -Xms1G"
+
+confluent_key: http://packages.confluent.io/deb/3.2/archive.key
+confluent_repo: deb [arch=amd64] http://packages.confluent.io/deb/3.2 stable main

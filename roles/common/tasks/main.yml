@@ -1,13 +1,11 @@
 - name: Add backports to debian
+  when: ansible_distribution == "Debian" and ansible_distribution_release == "jessie"
   apt_repository:
     repo: deb http://ftp.us.debian.org/debian/ jessie-backports main
     state: present
-- name: Update caches before running playbook
-  apt:
     update_cache: yes
 - name: Install java-8
   apt:
     name: openjdk-8-jdk
 - name: Set java8 to default
   command: /usr/sbin/update-java-alternatives -s java-1.8.0-openjdk-amd64
-1

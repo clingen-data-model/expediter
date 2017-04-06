@@ -1,58 +1,71 @@
 ---
-- name: setup group
-  group:
-    name: kafka
-    system: yes
-- name: setup user
-  user: 
-    name: kafka
-    system: yes
-    group: kafka
+- name: Add Confluent key
+  apt_key:
+    url: "{{ confluent_key }}"
+    state: present
+- name: Add Confluent repository
+  apt_repository:
+    repo: "{{ confluent_repo }}"
+    state: present
+    update_cache: yes
+- name: Install Confluent platform
+  apt:
+    name: confluent-platform-oss-2.11
 
-# TODO: Add verification of downloaded file
-- name: Download Kafka
-  get_url:
-    url: "{{ kafka_url }}"
-    dest: /root/kafka.tgz
-- name: Uncompress Kafka
-  unarchive:
-    src: /root/kafka.tgz
-    dest: /opt
-    copy: no
-- name: Link /opt/kafka to current version
-  file:
-    src: "/opt/kafka_{{ kafka_version }}"
-    path: /opt/kafka
-    state: link
-    force: yes
-- name: Create /etc/opt/kafka
-  file:
-    path: /etc/opt/kafka
-    state: directory
-- name: Copy configuration to /etc/opt/kafka
-  copy:
-    src: config/
-    dest: /etc/opt/kafka/
-- name: create systemd config for Kafka
-  template:
-    dest: /etc/systemd/system/kafka.service
-    owner: root
-    group: root
-    mode: 644
-    src: kafka.service.j2
-- name: create systemd config for Zookeeper
-  copy:
-    dest: /etc/systemd/system/zookeeper.service
-    owner: root
-    group: root
-    mode: 644
-    src: zookeeper.service
-- name: start (or restart) Zookeeper
-  systemd:
-    daemon_reload: yes
-    name: zookeeper
-    state: restarted
-- name: start (or restart) Kafka
-  systemd:
-    name: kafka
-    state: restarted
+# - name: setup group
+#   group:
+#     name: kafka
+#     system: yes
+# - name: setup user
+#   user: 
+#     name: kafka
+#     system: yes
+#     group: kafka
+
+# # TODO: Add verification of downloaded file
+# - name: Download Kafka
+#   get_url:
+#     url: "{{ kafka_url }}"
+#     dest: /root/kafka.tgz
+# - name: Uncompress Kafka
+#   unarchive:
+#     src: /root/kafka.tgz
+#     dest: /opt
+#     copy: no
+# - name: Link /opt/kafka to current version
+#   file:
+#     src: "/opt/kafka_{{ kafka_version }}"
+#     path: /opt/kafka
+#     state: link
+#     force: yes
+# - name: Create /etc/opt/kafka
+#   file:
+#     path: /etc/opt/kafka
+#     state: directory
+# - name: Copy configuration to /etc/opt/kafka
+#   copy:
+#     src: config/
+#     dest: /etc/opt/kafka/
+# - name: create systemd config for Kafka
+#   template:
+#     dest: /etc/systemd/system/kafka.service
+#     owner: root
+#     group: root
+#     mode: 644
+#     src: kafka.service.j2
+# - name: create systemd config for Zookeeper
+#   copy:
+#     dest: /etc/systemd/system/zookeeper.service
+#     owner: root
+#     group: root
+#     mode: 644
+#     src: zookeeper.service
+# - name: start (or restart) Zookeeper
+#   systemd:
+#     daemon_reload: yes
+#     name: zookeeper
+#     state: restarted
+# - name: start (or restart) Kafka
+#   systemd:
+#     name: kafka
+#     state: restarted
