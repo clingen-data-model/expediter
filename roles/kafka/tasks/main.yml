@@ -1,4 +1,10 @@
 ---
+- name: Install zookeeper
+  apt:
+    name: zookeeper
+- name: Install zookeeperd
+  apt:
+    name: zookeeperd
 - name: Add Confluent key
   apt_key:
     url: "{{ confluent_key }}"
@@ -11,16 +17,37 @@
 - name: Install Confluent platform
   apt:
     name: confluent-platform-oss-2.11
-
-# - name: setup group
-#   group:
-#     name: kafka
-#     system: yes
-# - name: setup user
-#   user: 
-#     name: kafka
-#     system: yes
-#     group: kafka
+- name: setup group
+  group:
+    name: kafka
+    system: yes
+- name: setup user
+  user: 
+    name: kafka
+    system: yes
+    group: kafka
+- name: create and set permissions on kafka directory
+  file:
+    state: directory
+    path: /var/lib/kafka
+    owner: kafka
+    group: kafka
+    mode: 0755
+- name: create and set permissions on kafka log directory
+  file:
+    state: directory
+    path: /var/log/kafka
+    owner: kafka
+    group: kafka
+    mode: 0755
+- name: copy kafka service
+  copy:
+    src: kafka.service
+    dest: /etc/systemd/system/kafka.service
+- name: start kafka
+  systemd:
+    name: kafka
+    state: started
 
 # # TODO: Add verification of downloaded file
 # - name: Download Kafka
