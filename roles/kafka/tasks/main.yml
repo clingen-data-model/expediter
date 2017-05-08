@@ -48,6 +48,7 @@
   systemd:
     name: kafka
     state: started
+    enabled: yes
 
 # # TODO: Add verification of downloaded file
 # - name: Download Kafka
