@@ -44,56 +44,40 @@
   copy:
     src: kafka.service
     dest: /etc/systemd/system/kafka.service
+- name: copy kafka server config
+  template:
+    src: server.properties.j2
+    dest: /etc/kafka/server.properties
+- name: create private directory
+  file:
+    state: directory
+    path: /var/private
+    owner: root
+    group: root
+    mode: 0755
+- name: create kafka key directory
+  file:
+    state: directory
+    path: /var/private/kafka
+    owner: kafka
+    group: kafka
+    mode: 0755
+- name: copy keyfile
+  copy:
+    src: '{{ inventory_hostname }}.kafka.server.keystore.jks'
+    dest: /var/private/kafka
+    owner: root
+    group: kafka
+    mode: 0750
+- name: copy truststore
+  copy:
+    src: '{{ inventory_hostname }}.kafka.server.truststore.jks'
+    dest: /var/private/kafka
+    owner: root
+    group: kafka
+    mode: 0750
 - name: start kafka
   systemd:
     name: kafka
-    state: started
+    state: restarted
     enabled: yes
-
-# # TODO: Add verification of downloaded file
-# - name: Download Kafka
-#   get_url:
-#     url: "{{ kafka_url }}"
-#     dest: /root/kafka.tgz
-# - name: Uncompress Kafka
-#   unarchive:
-#     src: /root/kafka.tgz
-#     dest: /opt
-#     copy: no
-# - name: Link /opt/kafka to current version
-#   file:
-#     src: "/opt/kafka_{{ kafka_version }}"
-#     path: /opt/kafka
-#     state: link
-#     force: yes
-# - name: Create /etc/opt/kafka
-#   file:
-#     path: /etc/opt/kafka
-#     state: directory
-# - name: Copy configuration to /etc/opt/kafka
-#   copy:
-#     src: config/
-#     dest: /etc/opt/kafka/
-# - name: create systemd config for Kafka
-#   template:
-#     dest: /etc/systemd/system/kafka.service
-#     owner: root
-#     group: root
-#     mode: 644
-#     src: kafka.service.j2
-# - name: create systemd config for Zookeeper
-#   copy:
-#     dest: /etc/systemd/system/zookeeper.service
-#     owner: root
-#     group: root
-#     mode: 644
-#     src: zookeeper.service
-# - name: start (or restart) Zookeeper
-#   systemd:
-#     daemon_reload: yes
-#     name: zookeeper
-#     state: restarted
-# - name: start (or restart) Kafka
-#   systemd:
-#     name: kafka
-#     state: restarted
