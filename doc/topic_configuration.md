@@ -17,5 +17,6 @@ kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allo
 # Grant garde-manger read access on garde-manger group
 kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US" --operation Read --group garde-manger
 Grant serveur read access on topics
+kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US" --operation Read --operation Write --operation Describe --topic gene_dosage
 
 ```
