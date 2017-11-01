@@ -1,5 +1,7 @@
 # Components
 
+Note that this only covers components built by the Harvard/Geisinger team, not the parts built by Baylor or Stanford.
+
 ## Expediter
 
 ### Description
@@ -113,17 +115,35 @@ Deployment of new code to the webserver has been scripted, (but could probably b
 
 The current data model is loosely based on DMWG ideas (especially as those ideas have evolved substantially over the course of development). Now that the interpretation model has been solidified, it would be good to revisit the internal data model of this tool and bring it in alignment with the DMWG standards.
 
+#### Refactor controllers and views around data model migration
+
+Ideally there should be a partial for every object in the data model and views should be configured by composing these. The goal is to reduce code duplication, errors and effort, and maintain a consistent look and feel for users of the site.
+
 #### Search based on ontological relationships
 
 The backend of this was hosted on a graph database with the explicit goal of allowing users to search based on ontologic relationships (i.e., retrieve all assertions based on subclasses of a given term; navagate a tree of relationships in the system). Right now we are only minimally taking advantage of this; it would be good to take this farther.
 
 #### Represent and search for variants/regions
 
-We are looking to import variants from ClinVar and make them searchable on this website. This will ideally come with a data representation that works for both structural and sequence variants; as well as a visual representation that is coherent between the two.
+We are looking to import variants from ClinVar and make them searchable on this pwebsite. This will ideally come with a data representation that works for both structural and sequence variants; as well as a visual representation that is coherent between the two.
 
 #### Display rich data from the curation interfaces (as it becomes available via Data Exchange)
 
 Right now we're building a representation of data from the curation interfaces based on a minimal modification of what we're already accepting. It would be good to expand this display to encompass all the data being curated (as it is presented to us in a data model compatible format).
+
+## ClinVar curation tool
+
+### Description
+
+Tool for curating variants present in ClinVar and updating the status of the submission on the ClinVar website.
+
+### Implementation
+
+None to speak of yet.
+
+### Todos
+
+#### Everything
 
 # Tooling
 
