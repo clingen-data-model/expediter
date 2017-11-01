@@ -18,7 +18,7 @@ Currently there is no notification system for alerting administrators if the Kaf
 
 #### Testing
 
-Currently there is no automated testing of the Data Exchange configuration. The standard testbed for Ansible roles seems to be a Vagrant based VM. Studying popular playbooks on Ansible Galaxy for test configuration then replicating it.
+Currently there is no automated testing of the Data Exchange configuration. The standard testbed for Ansible roles seems to be a Vagrant based VM. Approach would be to study popular playbooks on Ansible Galaxy for test configurations then replicate existing proven approaches.
 
 #### Automate creation of data exchange topics
 
