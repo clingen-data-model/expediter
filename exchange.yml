@@ -4,6 +4,7 @@
   roles:
     - common
     - kafka
+    - kafka_roles
 
       
       

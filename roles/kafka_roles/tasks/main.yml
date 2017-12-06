@@ -1,0 +1,33 @@
+---
+- name: Pause for Kafka restart
+  pause:
+    seconds: 10
+# TODO: update to check to see if topic exists before creating
+- name: Create topics
+  command: "kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic {{ item }}"
+  ignore_errors: true
+  with_items:
+    - test
+    - gene_dosage
+    - gene_validity
+    - actionability
+- name: Grant localhost ability to read cluster
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:ANONYMOUS --allow-host 127.0.0.1 --operation ClusterAction --cluster"
+- name: Grant all to test topic
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
+  with_items:
+    - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+- name: Grant garde read and write on gene_dosage
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage"
+  with_items:
+    - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+- name: Grant serveur read on gene_dosage
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
+  with_items:
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+- name: Grant read on groups
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --group {{ item }}"
+  with_items:
+    - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
