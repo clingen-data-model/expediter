@@ -13,7 +13,9 @@ Most popular (and many unpopular) programming languages will have recent native 
 
 ### Configure client to send to data exchange
 
-Configuration will vary by client, but 
+Configuration will vary by client. The client should be configured to use SSL and to authenticate via a signed certificate.
+
+The host to connect to is: exchange.clinicalgenome.org:9393
 
 ```clojure
 ;; src/garde-manger/kafka.clj
