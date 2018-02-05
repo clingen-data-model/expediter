@@ -15,7 +15,7 @@ Most popular (and many unpopular) programming languages will have recent native 
 
 Configuration will vary by client. The client should be configured to use SSL and to authenticate via a signed certificate.
 
-The host to connect to is: exchange.clinicalgenome.org:9393
+The host to connect to is: exchange.clinicalgenome.org:9093
 
 ```clojure
 ;; src/garde-manger/kafka.clj
