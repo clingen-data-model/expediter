@@ -17,6 +17,11 @@ Configuration will vary by client. The client should be configured to use SSL an
 
 The host to connect to is: exchange.clinicalgenome.org:9093
 
+Be sure to download and trust the certificate for the local certificate authority governing the Data Exchange
+
+https://raw.githubusercontent.com/clingen-data-model/expediter/master/ca-cert
+
+
 ```clojure
 ;; src/garde-manger/kafka.clj
 (ns garde-manger.kafka
