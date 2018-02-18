@@ -18,6 +18,7 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
     - "User:CN=prod-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
@@ -37,10 +38,12 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
 - name: Grant read on groups
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --group {{ item }}"
   with_items:
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
     - "User:CN=prod-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
