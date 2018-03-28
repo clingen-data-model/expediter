@@ -1,6 +1,7 @@
 [Unit]
 Description=Apache Kafka
-After=network.target
+Requires=network.target remote-fs.target
+After=zookeeper.service
 
 [Service]
 Type=simple

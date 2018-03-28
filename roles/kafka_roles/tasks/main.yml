@@ -12,8 +12,11 @@
     - gene_validity
     - actionability
     - actionability_dev
+    - gene_validity_dev
 - name: Grant localhost ability to read cluster
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:ANONYMOUS --allow-host 127.0.0.1 --operation ClusterAction --cluster"
+# /C=US/ST=California/L=Palo Alto/O=Stanford/OU=SOM/CN=localhost
+# CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
@@ -22,6 +25,7 @@
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
+    - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
 - name: Grant garde read and write on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage"
   with_items:
@@ -35,6 +39,10 @@
   with_items:
     - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
+- name: Grant Stanford read and write on gene_validity_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_dev"
+  with_items:
+    - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
@@ -48,4 +56,5 @@
     - {user: "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "serveur_dev"}
     - {user: "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability_dev"}
     - {user: "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability"}
+    - {user: "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US", group: "gene_validity_dev"}
 

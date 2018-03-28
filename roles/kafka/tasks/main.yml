@@ -2,9 +2,11 @@
 - name: Install zookeeper
   apt:
     name: zookeeper
+    state: latest
 - name: Install zookeeperd
   apt:
     name: zookeeperd
+    state: latest
 - name: Add Confluent key
   apt_key:
     url: "{{ confluent_key }}"
@@ -17,6 +19,7 @@
 - name: Install Confluent platform
   apt:
     name: confluent-platform-oss-2.11
+    state: latest
 - name: setup group
   group:
     name: kafka

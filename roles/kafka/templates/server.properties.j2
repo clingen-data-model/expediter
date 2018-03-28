@@ -131,3 +131,6 @@ ssl.truststore.password={{ ssl_key_password }}
 ### Authorization and ACLs
 ssl.client.auth=required
 authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+
+### Set cleanup policy appropriate for data exchange
+cleanup.policy=compact
