@@ -26,6 +26,7 @@
     - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
 - name: Grant garde read and write on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage"
   with_items:
@@ -43,6 +44,11 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_dev"
   with_items:
     - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant Stanford read and write on gene_validity
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity"
+  with_items:
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
