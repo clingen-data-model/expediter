@@ -21,6 +21,7 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
@@ -49,17 +50,43 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity"
   with_items:
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant serveur read on gene_validity_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_dev"
+  with_items:
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
+- name: Grant serveur read on gene_validity
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity"
+  with_items:
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
+- name: Grant serveur read on actionability
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability"
+  with_items:
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
+- name: Grant serveur read on actionability_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability_dev"
+  with_items:
+    - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
 - name: Grant read on groups
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item.user }}\" --operation Read --group {{ item.group }}"
   with_items:
     - {user: "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "garde"}
     - {user: "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "serveur"}
     - {user: "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "serveur_dev"}
+    - {user: "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US", group: "serveur_stage"}
     - {user: "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability_dev"}
     - {user: "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability"}
     - {user: "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US", group: "gene_validity_dev"}
