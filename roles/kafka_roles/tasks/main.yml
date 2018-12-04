@@ -12,10 +12,15 @@
   with_items:
     - test
     - gene_dosage
+    - gene_dosage_beta
     - gene_validity
     - actionability
     - actionability_dev
     - gene_validity_dev
+    - variant_path_interp_dev
+    - variant_path_interp
+    - variant_interpretation
+    - variant_interpretation_dev
 - name: Grant localhost ability to read cluster
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:ANONYMOUS --allow-host 127.0.0.1 --operation ClusterAction --cluster"
 # /C=US/ST=California/L=Palo Alto/O=Stanford/OU=SOM/CN=localhost
@@ -23,8 +28,15 @@
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
+    - "User:CN=Larry Babb,OU=ClinGen,O=Broad,L=Cambridge,ST=MA,C=US"
+    - "User:CN=dev-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
+    - "User:CN=prod-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US"
+    - "User:1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
@@ -37,6 +49,10 @@
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
 - name: Grant garde read and write on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage"
+  with_items:
+    - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+- name: Grant garde read and write on gene_dosage_beta
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage_beta"
   with_items:
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
 - name: Grant Baylor read and write on actionability
@@ -58,24 +74,49 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity"
   with_items:
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant Stanford read and write on variant_interpretation
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_interpretation"
+  with_items:
+    - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant Stanford read and write on variant_interpretation_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_interpretation_dev"
+  with_items:
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant larry read and write on variant_path_interp_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_path_interp_dev"
+  with_items:
+    - "User:CN=Larry Babb,OU=ClinGen,O=Broad,L=Cambridge,ST=MA,C=US"
+- name: Grant larry read and write on variant_path_interp
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_path_interp"
+  with_items:
+    - "User:CN=Larry Babb,OU=ClinGen,O=Broad,L=Cambridge,ST=MA,C=US"
 - name: Grant serveur read on gene_validity_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_dev"
   with_items:
+    - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
 - name: Grant serveur read on gene_validity
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity"
   with_items:
+    - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
@@ -83,8 +124,11 @@
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
 - name: Grant serveur read on actionability
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability"
   with_items:
@@ -110,5 +154,11 @@
     - {user: "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability"}
     - {user: "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US", group: "gene_validity_dev"}
     - {user:  "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US", group: "larry_dev"}
+    - {user:  "User:CN=Larry Babb,OU=ClinGen,O=Broad,L=Cambridge,ST=MA,C=US", group: "larry_dev"}
     - {user: "User:CN=web3.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US", group: "unc"}
+    - {user: "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc_demo"}
     - {user: "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US", group: "unc_demo"}
+    - {user: "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US", group: "unc"}
+    - {user: "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US", group: "unc_demo"}
+    - {user: "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc_demo"}
+    - {user: "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc"}
