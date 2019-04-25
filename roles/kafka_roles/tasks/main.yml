@@ -59,6 +59,11 @@
     - "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=Tristan Nelson,OU=ADMI,O=Geisinger,L=New York,ST=New York,C=US"
+    - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
+    - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
+    - "User:CN=prod-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
+    - "User:CN=stage-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
 - name: Grant Baylor read and write on actionability
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic actionability"
   with_items:
