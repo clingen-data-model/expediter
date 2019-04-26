@@ -3,4 +3,3 @@ kafka:
     kafka.iseult.us
   vars:
     ansible_user: tristan
-    public_ip: 35.227.89.74

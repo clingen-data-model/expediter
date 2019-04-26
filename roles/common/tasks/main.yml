@@ -9,3 +9,8 @@
     name: openjdk-8-jdk
 - name: Set java8 to default
   command: /usr/sbin/update-java-alternatives -s java-1.8.0-openjdk-amd64
+- name: Update /etc/hosts with public DNS
+  lineinfile:
+    path: /etc/hosts
+    line: "127.0.0.1       {{ inventory_hostname }}"
+    create: yes

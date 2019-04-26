@@ -1,7 +1,4 @@
 ---
-# /C=US/ST=NC/L=Chapel Hill/O=University of North Carolina at Chapel Hill/OU=Sheps Center Hlth Serv Res/emailAddress=web@schsr.unc.edu/CN=web3.schsr.unc.edu
-# subject=/C=US/ST=NC/L=Chapel Hill/O=University of North Carolina at Chapel Hill/OU=Sheps Center Hlth Serv Res/emailAddress=web@schsr.unc.edu/CN=web3demo.schsr.unc.edu
-
 - name: Pause for Kafka restart
   pause:
     seconds: 10
@@ -25,6 +22,10 @@
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:ANONYMOUS --allow-host 127.0.0.1 --operation ClusterAction --cluster"
 # /C=US/ST=California/L=Palo Alto/O=Stanford/OU=SOM/CN=localhost
 # CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US
+- name: Grant create permission on cluster to admins
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Create --cluster"
+  with_items:
+    - "User:CN=Tristan Nelson,OU=ADMI,O=Geisinger,L=New York,ST=New York,C=US"
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:

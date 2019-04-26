@@ -1,0 +1,10 @@
+- hosts: all
+  remote_user: admin
+  become: true
+  roles:
+    - common
+    - kafka
+
+      
+      
+
