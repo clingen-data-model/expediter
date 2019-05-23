@@ -18,6 +18,7 @@
     - variant_path_interp
     - variant_interpretation
     - variant_interpretation_dev
+    - ontologies_schemas
 - name: Grant localhost ability to read cluster
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:ANONYMOUS --allow-host 127.0.0.1 --operation ClusterAction --cluster"
 # /C=US/ST=California/L=Palo Alto/O=Stanford/OU=SOM/CN=localhost
@@ -50,6 +51,10 @@
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
     # /C=US/ST=MA/L=Cambridge/O=Broad Institute/OU=Unknown/CN=Larry Babb
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+- name: Grant read and write on ontologies_schemas
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic ontologies_schemas"
+  with_items:
+    - "User:CN=Tristan Nelson,OU=ADMI,O=Geisinger,L=New York,ST=New York,C=US"
 - name: Grant garde read and write on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_dosage"
   with_items:
