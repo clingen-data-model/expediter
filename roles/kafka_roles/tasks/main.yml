@@ -28,6 +28,8 @@
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=Tristan Nelson,OU=ADMI,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=ClinGen,O=Broad,L=Cambridge,ST=MA,C=US"
     - "User:CN=dev-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
@@ -64,6 +66,8 @@
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=prod-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
     - "User:CN=stage-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant Baylor read and write on actionability
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic actionability"
   with_items:
@@ -98,6 +102,8 @@
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant Baylor read on variant_interpretation_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic variant_interpretation_dev"
   with_items:
@@ -106,6 +112,8 @@
     - "User:CN=stage-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant larry read and write on variant_path_interp_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_path_interp_dev"
   with_items:
@@ -127,6 +135,8 @@
     - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
     - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant serveur read on gene_validity
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity"
   with_items:
@@ -140,6 +150,8 @@
     - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
     - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
@@ -152,6 +164,8 @@
     - "User:EMAILADDRESS=web@schsr.unc.edu,CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,emailAddress=web@schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
     - "User:CN=web3demo.schsr.unc.edu,1.2.840.113549.1.9.1=#16117765624073636873722e756e632e656475,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant serveur read on actionability
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability"
   with_items:
@@ -159,6 +173,8 @@
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant serveur read on actionability_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability_dev"
   with_items:
@@ -166,6 +182,8 @@
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
     - "User:CN=Larry Babb,OU=Unknown,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
+    - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
 - name: Grant read on groups
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item.user }}\" --operation Read --group {{ item.group }}"
   with_items:
@@ -187,4 +205,6 @@
     - {user: "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc"}
     - {user: "User:CN=stage-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US", group: "brl_stage"}
     - {user: "User:CN=Tristan Nelson,OU=ADMI,O=Geisinger,L=New York,ST=New York,C=US", group: "tristan"}
+    - {user: "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US", group: "phil"}
+    - {user: "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US", group: "search_stage"}
     
