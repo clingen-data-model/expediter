@@ -14,6 +14,8 @@
     - gene_dosage
     - gene_dosage_beta
     - gene_validity
+    - gene_validity_events
+    - gene_validity_events_dev
     - actionability
     - actionability_dev
     - gene_validity_dev
@@ -87,6 +89,15 @@
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
 - name: Grant Stanford read and write on gene_validity
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity"
+  with_items:
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant Stanford read and write on gene_validity_events_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_events_dev"
+  with_items:
+    - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
+    - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant Stanford read and write on gene_validity_events
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_events"
   with_items:
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
 - name: Grant Stanford read and write on variant_interpretation
