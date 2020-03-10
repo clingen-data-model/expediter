@@ -30,6 +30,7 @@
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
+    - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
@@ -98,10 +99,23 @@
   with_items:
     - "User:CN=localhost,OU=SOM,O=Stanford,L=Palo Alto,ST=California,C=US"
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
 - name: Grant Stanford read and write on gene_validity_events
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_events"
   with_items:
     - "User:CN=*.clinicalgenome.org,OU=Department of Biomedical Data Science,O=Stanford University,L=Stanford,ST=California,C=US"
+- name: Grant UNC read on gene_validity_events
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_events"
+  with_items:
+    - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+    - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
+- name: Grant UNC read on gene_validity_events_dev
+  command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_events_dev"
+  with_items:
+    - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
+    - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+    - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
 - name: Grant Stanford read and write on variant_interpretation
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_interpretation"
   with_items:
