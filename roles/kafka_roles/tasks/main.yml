@@ -35,6 +35,8 @@
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+# /C=US/ST=NC/L=Chapel Hill/O=Univ of North Carolina at Chapel Hill/OU=Cecil G. Sheps Center for Health Services Research/CN=Berg Lab
+    - "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
@@ -135,6 +137,7 @@
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+    - "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
 - name: Grant UNC read on gene_validity_events_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_events_dev"
   with_items:
@@ -142,6 +145,7 @@
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+    - "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
 - name: Grant Stanford read and write on variant_interpretation
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_interpretation"
   with_items:
@@ -276,4 +280,8 @@
     - {user: "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US", group: "phil"}
     - {user: "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US", group: "search_stage"}
     - {user: "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US", group: "search2"}
+    - {user: "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc"}
+    - {user: "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc_demo"}
+    - {user: "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US", group: "unc"}
+    - {user: "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US", group: "unc_demo"}
     
