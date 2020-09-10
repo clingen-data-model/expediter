@@ -32,6 +32,9 @@
 - name: Grant all to test topic
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic test"
   with_items:
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
@@ -106,9 +109,12 @@
 - name: Grant read on gene_validity_raw
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_raw"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant Stanford read and write on gene_validity_raw_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_raw_dev"
   with_items:
@@ -117,9 +123,12 @@
 - name: Grant read on gene_validity_raw_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_raw_dev"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant Stanford read and write on gene_validity_events_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic gene_validity_events_dev"
   with_items:
@@ -133,19 +142,27 @@
 - name: Grant UNC read on gene_validity_events
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_events"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant UNC read on gene_validity_events_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_events_dev"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:O=UNC Berg Lab,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Sheps Center,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=Berg Lab,OU=Cecil G. Sheps Center for Health Services Research,O=Univ of North Carolina at Chapel Hill,L=Chapel Hill,ST=NC,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant Stanford read and write on variant_interpretation
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_interpretation"
   with_items:
@@ -158,15 +175,20 @@
 - name: Grant Baylor read on variant_interpretation
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic variant_interpretation"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant Baylor read on variant_interpretation_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic variant_interpretation_dev"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US"
     - "User:CN=dev-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
     - "User:CN=stage-client.brl.bcmd.bcm.edu,OU=BRL,O=Baylor College of Medicine,L=Houston,ST=Texas,C=US"
@@ -175,6 +197,7 @@
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant larry read and write on variant_path_interp_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --operation Write --topic variant_path_interp_dev"
   with_items:
@@ -186,6 +209,8 @@
 - name: Grant serveur read on gene_validity_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity_dev"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
@@ -201,9 +226,12 @@
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant serveur read on gene_validity
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_validity"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US"
     - "User:CN=tj.ward,OU=Sheps,O=UNC,L=Carrboro,ST=North Carolina,C=US"
     - "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,C=US"
@@ -219,9 +247,12 @@
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant serveur read on gene_dosage
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic gene_dosage"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
@@ -234,9 +265,12 @@
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant serveur read on actionability
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
@@ -244,9 +278,12 @@
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant serveur read on actionability_dev
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item }}\" --operation Read --topic actionability_dev"
   with_items:
+    - "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
+    - "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US"
     - "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US"
     - "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US"
@@ -254,13 +291,19 @@
     - "User:CN=helix.firesideprojects.com,OU=Geisinger,O=Geisinger,L=Forked River,ST=NJ,C=US"
     - "User:CN=search1.clingen.info,OU=Development,O=ClinGen,L=Danville,ST=PA,C=US"
     - "User:CN=search2.clinicalgenome.org,OU=ClinGen,O=ClinGen,L=Danville,ST=PA,C=US"
+    - "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US"
 - name: Grant read on groups
   command: "kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal \"{{ item.user }}\" --operation Read --group {{ item.group }}"
   with_items:
+    - {user: "User:CN=serveurprodgcp,OU=ClinGen,O=Geisinger,L=New York,ST=NY,C=US", group: serveur_prod_gcp}
+    - {user: "User:CN=Data Exchange Migration,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US", group: dx_migration}
+    - {user: "User:CN=Kyle Ferriter,OU=ClinGen,O=Broad Institute,L=Cambridge,ST=MA,C=US", group: kyle_broad}
     - {user: "User:CN=web3demo.schsr.unc.edu,OU=Sheps Center Hlth Serv Res,O=University of North Carolina at Chapel Hill,L=Chapel Hill,ST=North Carolina,C=US", group: "unc_demo"}
     - {user: "User:CN=garde-manger.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "garde"}
     - {user: "User:CN=serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "serveur"}
     - {user: "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "serveur_dev"}
+    - {user: "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "DX_MIGRATION"}
+    - {user: "User:CN=dev.serveur.clinicalgenome.org,OU=Unknown,O=Unknown,L=New York,ST=New York,C=US", group: "DX_MIGRATION_DEV"}
     - {user: "User:CN=search-stage.clinicalgenome.org,OU=ClinGen,O=Geisinger,L=New York,ST=New York,C=US", group: "serveur_stage"}
     - {user: "User:CN=test.genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability_dev"}
     - {user: "User:CN=genome.network,OU=BRL,O=BCM,L=Houston,ST=Texas,C=US", group: "actionability"}
